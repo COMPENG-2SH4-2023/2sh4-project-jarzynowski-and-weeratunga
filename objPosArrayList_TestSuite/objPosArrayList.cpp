@@ -34,17 +34,43 @@ void objPosArrayList::insertHead(objPos thisPos)
 
 void objPosArrayList::insertTail(objPos thisPos)
 {
+    if (listSize < arrayCapacity) 
+    {
+        aList[listSize].setObjPos(thisPos);
+        listSize++;
+    }
 
+    else
+    {
+        return;
+    }
 }
 
 void objPosArrayList::removeHead()
 {
-    
+     if(listSize == 0)
+    {
+        return;
+    }
+
+    for(int i = 0; i < listSize - 1; i++)   
+    {
+        // shuffling towards the head
+        aList[i].setObjPos(aList[i + 1]);  
+    }
+    listSize--;
 }
 
 void objPosArrayList::removeTail()
 {
+    if(listSize == 0)
+    {
+        return; // No action for an empty list
+    }
 
+    // Lazy delete, reducing the list size with no alterations
+    // Doesn't matter anyway since last element will be overwritten later
+    listSize--;  
 }
 
 void objPosArrayList::getHeadElement(objPos &returnPos)
@@ -65,6 +91,6 @@ void objPosArrayList::getElement(objPos &returnPos, int index)
     }
     else
     {
-        returnPos.setObjPos(-1, -1, ' '); // Default x-y coordinate (-1, -1) and symbol ' '
+        returnPos.setObjPos(0, 0, ' '); // Default x-y coordinate (-1, -1) and symbol ' '
     }
 }
