@@ -19,11 +19,13 @@ class GameMechs
     // You will include more data members and member functions to complete your design.
 
     private:
+    
         char input;
         bool exitFlag;
         bool loseFalg;
         int boardSizeX;
         int boardSizeY;
+        objPos foodPos;
 
     public:
         GameMechs();
@@ -43,7 +45,12 @@ class GameMechs
 
         int getBoardSizeX();
         int getBoardSizeY();
-      
+
+        void generateFood(const objPos& blockOff);
+        // 2B - Generate food function, straight from PPA3
+
+        void getFoodPos(objPos& returnPos);
+        // 2B - Get food position function
 
 };
 

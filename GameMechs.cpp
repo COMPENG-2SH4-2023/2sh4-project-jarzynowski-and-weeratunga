@@ -1,5 +1,9 @@
 #include "GameMechs.h"
 
+#include <cstdlib>
+#include <ctime>
+
+
 GameMechs::GameMechs()
 {
 
@@ -61,4 +65,29 @@ int GameMechs::getScore()
     return 69420; // For now.
 }
 
+void GameMechs::generateFood(const objPos& blockOff) {
+    srand(time(NULL)); // Seed for random number generation
+
+    // Assuming getBoardSizeX() and getBoardSizeY() return the size of the board
+    int boardSizeX = getBoardSizeX();
+    int boardSizeY = getBoardSizeY();
+
+    int x, y;
+    do {
+        // Generate random position within the board boundaries
+        x = rand() % (boardSizeX - 2) + 1; // -2 and +1 to adjust for board edges
+        y = rand() % (boardSizeY - 2) + 1;
+
+        // Repeat if the generated position is the same as the player's position
+    } while (x == blockOff.x && y == blockOff.y);
+
+    // Set the food position
+    foodPos.x = x;
+    foodPos.y = y;
+    //foodPos.icon = '*'; // Assuming '*' is the symbol for food
+}
+
+void GameMechs::getFoodPos(objPos& returnPos) {
+    returnPos = foodPos; // Assign the food position to returnPos
+}
 

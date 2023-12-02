@@ -48,6 +48,11 @@ void Initialize(void)
     MacUILib_clearScreen();
     myGM = new GameMechs(26, 13);
     myPlayer = new Player(myGM);
+    
+    objPos playerStartPos(26,13,'*');
+
+
+    myGM->generateFood(playerStartPos);
 
     //Scott didn't have this here so not sure if we should keep or not
     exitFlag = false;
@@ -79,36 +84,43 @@ void DrawScreen(void)
     //get the player position
     myPlayer->getPlayerPos(tempPos);   
 
+    objPos foodPos;
+    myGM->getFoodPos(foodPos);
+
     for(int i = 0; i < myGM->getBoardSizeY(); i++)
     {
         for(int j = 0; j < myGM->getBoardSizeX(); j++)
         {
-            //draw the borders
+            // Draw the borders
             if(i == 0 || i == myGM->getBoardSizeY() - 1 || j == 0 || j == myGM->getBoardSizeX() -1)
             {
                 printf("%c", '#');
             }
             else if (j == tempPos.x && i == tempPos.y)
             {
-                printf("%c", tempPos.symbol);
+                printf("%c", tempPos.symbol); // Assuming tempPos.symbol holds the player's symbol
+            }
+            else if (j == foodPos.x && i == foodPos.y)
+            {
+                printf("*"); // Draw the food (assuming '*' represents food)
             }
             else
             {
                 printf("%c", ' ');
             }
-            
         }
-
         printf("\n");
     }
+
     
     // Bottom Printing Sequence
     MacUILib_printf("--'COMPENG-2SH4 Snake'------------------\n");
     MacUILib_printf("----------------------------------------\n");
     MacUILib_printf("-- Current Score: %d \n", myGM->getScore());
-    MacUILib_printf("-- Current Coordinates: <%d, %d> \n", tempPos.x, tempPos.y);
+    MacUILib_printf("-- Current Coordinates: [%d, %d] \n", tempPos.x, tempPos.y);
+    MacUILib_printf("-- Food Coordinates: [%d, %d] \n", foodPos.x, foodPos.y);
     MacUILib_printf("----------------------------------------\n");
-    MacUILib_printf("-- Controls: ---------------------------\n");
+    MacUILib_printf("-- Controls ----------------------------\n");
     MacUILib_printf("-- W: Move Up, A: Move Left\n"); 
     MacUILib_printf("-- S: Move Down, D: Move Right\n");
     printf("----------------------------------------\n");
