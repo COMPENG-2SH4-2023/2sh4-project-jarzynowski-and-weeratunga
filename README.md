@@ -4,8 +4,8 @@ Project Culmination Activity
 
 You must watch the briefing video and read through the manual to engage in the development activities.
 
-Section's: [L08, L09]
+Section's: L08, L09
 
-MacID's: [jarzynom, weerats]
+MacID's: jarzynom, weerats
 
-StudentID's: [400455803, 400471208]
+StudentID's: 400455803, 400471208
