@@ -29,11 +29,11 @@ int main(void)
 
     Initialize();
 
-    while(myGM->getExitFlagStatus() == false)  
+    while(!myGM->getExitFlagStatus())  
     {
+        DrawScreen(); // Switched the order of DrawScreen and GetInput, since wouldnt print without and input lol
         GetInput();
         RunLogic();
-        DrawScreen();
         LoopDelay();
     }
 
@@ -55,7 +55,10 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    myGM->getInput();
+    if (MacUILib_hasChar()){
+        char input = MacUILib_getChar();
+        myGM->setInput(input);
+    }
 }
 
 void RunLogic(void)
@@ -65,6 +68,7 @@ void RunLogic(void)
 
     //so that input does not need to be repeatedly processed
     myGM->clearInput();
+    // pointer is crazy!!!!!!!!!!!
 }
 
 void DrawScreen(void)
@@ -97,9 +101,50 @@ void DrawScreen(void)
 
         printf("\n");
     }
-    //getScore is an error for now but won't be once implemented
-    MacUILib_printf("Score: %d, Player Pos: <%d, %d>\n", myGM->getScore(), tempPos.x, tempPos.y);
+    
+    // Bottom Printing Sequence
+    MacUILib_printf("--'COMPENG-2SH4 Snake'------------------\n");
+    MacUILib_printf("----------------------------------------\n");
+    MacUILib_printf("-- Current Score: %d \n", myGM->getScore());
+    MacUILib_printf("-- Current Coordinates: <%d, %d> \n", tempPos.x, tempPos.y);
+    MacUILib_printf("----------------------------------------\n");
+    MacUILib_printf("-- Controls: ---------------------------\n");
+    MacUILib_printf("-- W: Move Up, A: Move Left\n"); 
+    MacUILib_printf("-- S: Move Down, D: Move Right\n");
+    printf("----------------------------------------\n");
+    MacUILib_printf("-- By: M. Jarzynowski & S. Weeratunga --\n");
+    printf("----------------------------------------\n");
 
+
+
+    
+    //  printf("--'Find-the String'---------------------\n");
+    // printf("----------------------------------------\n");
+    // printf("Mystery String: %s\n", mysteryString);
+    // printf("Move Count: %d\n", moveCount);
+
+    // // Added from PPA2
+
+    // // Coordinates, game speed, and controls printing under the game board
+    // printf("----------------------------------------\n");
+    // printf("Current Coordinates, (%d, %d)\n", player.x, player.y); // Print the current player coordinates
+    // printf("Current Speed Level: %d" " (1-5)\n", gameSpeedIndex + 1); 
+    // printf("----------------------------------------\n");
+    // printf("Controls: \n");
+    // printf("W: Move Up, A: Move Left, S: Move Down, D: Move Right\n");
+    // printf("Q: Increase Speed, E: Decrease Speed, SPACE: Exit\n");
+    // printf("----------------------------------------\n");
+    
+    
+    // //getScore is an error for now but won't be once implemented
+    
+    
+    
+    
+    // MacUILib_printf("Score: %d, Player Pos: <%d, %d>\n", myGM->getScore(), tempPos.x, tempPos.y);
+    // // Added from PPA3
+
+   
 }
 
 void LoopDelay(void)

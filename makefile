@@ -12,5 +12,6 @@ ${EXEC} : $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) ${POSTLINKER}
 
 clean :
-	rm -r ${OBJ} ${EXEC} ${EXEC}.exe
+	rm -rf ${OBJ} ${EXEC} ${EXEC}.exe 
+	## Changed "-r" to "-rf" to avoid error message if file does not exist, c'mon Scotty!
 

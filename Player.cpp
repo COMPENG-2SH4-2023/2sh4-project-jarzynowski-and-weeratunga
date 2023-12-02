@@ -7,7 +7,7 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPos.setObjPos(5,5,'*');
+    playerPos.setObjPos(20,5,'*');
 }
 
 
@@ -47,7 +47,7 @@ void Player::updatePlayerDir()
             case 's':
                 if (myDir != UP && myDir != DOWN)
                 {
-                    myDir = LEFT;
+                    myDir = DOWN;
                 }
                 break;
 
@@ -106,6 +106,7 @@ void Player::movePlayer()
             }
             break;
         }
+        
 
     }
 }
