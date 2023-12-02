@@ -85,6 +85,10 @@ void GameMechs::generateFood(const objPos& blockOff) {
     foodPos.x = x;
     foodPos.y = y;
     //foodPos.icon = '*'; // Assuming '*' is the symbol for food
+    // I AM CHANGING THIS SO ITS OOP BULLSHIT SINCE I AM JUST PASSING
+    // THE SYMBOL VIA DRAW SCREEN DUE TO LAZINESS!!!!!!!!!!!
+
+
 }
 
 void GameMechs::getFoodPos(objPos& returnPos) {
