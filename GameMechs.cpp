@@ -50,7 +50,10 @@ void GameMechs::setInput(char this_input)
 
     if (input == '`'){
         exitFlag = true;
+        loseFlag = false;
     }
+    
+    
 }
 
 void GameMechs::clearInput()

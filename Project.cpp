@@ -108,7 +108,7 @@ void DrawScreen(void)
                     if (currentPos.x == j && currentPos.y == i)
                     {
                         printf("%c", currentPos.symbol); // Draw the player, referencing the symbol at this position
-                        drawn = true; // Consider something at this position
+                        drawn = true;
                         break;
                     }
                 }
@@ -155,11 +155,12 @@ void CleanUp(void)
     MacUILib_clearScreen();    
     if(myGM->getExitFlagStatus() == 1 && myGM->getLoseFlag() == true){
         
-        cout << "You crashed into youself, your done." << endl;
+        cout << "You crashed into yourself, you're done :(" << endl;
         cout << "Consider 'getting good' and trying again." << endl;
         cout << "Your final score was: " << myGM->getScore() << endl;
     }else if (myGM->getExitFlagStatus() ==1 && myGM->getLoseFlag() == false){
         cout << "You quit the game!" << endl;
+        cout << "Too hard?" << endl;
         cout << "Your final score was: " << myGM->getScore() << endl;
     }
     MacUILib_uninit();
