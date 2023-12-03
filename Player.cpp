@@ -89,24 +89,16 @@ void Player::movePlayer()
 {
     objPos newHead;
     playerPosList->getHeadElement(newHead); // Get the current head position of the player
-    // PPA3 Finite State Machine logic
+    
+    // PPA-3 FSM logic
     switch(myDir)
     {
-        case UP:
-            newHead.y--;
-            break;
-        case DOWN:
-            newHead.y++;
-            break;
-        case LEFT:
-            newHead.x--;
-            break;
-        case RIGHT:
-            newHead.x++;
-            break;
-        default:
-            // Handle no movement case or invalid direction
-            return;
+        case UP: newHead.y--; break;
+        case DOWN: newHead.y++; break;
+        case LEFT: newHead.x--; break;
+        case RIGHT: newHead.x++; break;
+        default: return; // No movement case or invalid direction
+
     }
     
     // Wrap around logic for the snake
@@ -115,16 +107,14 @@ void Player::movePlayer()
     if(newHead.x <= 0) newHead.x = mainGameMechsRef->getBoardSizeX() - 2;
     if(newHead.x >= mainGameMechsRef->getBoardSizeX()) newHead.x = 1;
     
+
+    // Collision Check - setLoseFlag() messages still need to be implemented
     if (checkSelfCollision(newHead))
     {
         mainGameMechsRef->setExitTrue();
         mainGameMechsRef->setLoseFlag();
         return;
     }
-
-    
-
-
 
 
 

@@ -43,6 +43,11 @@ void GameMechs::setExitTrue()
     exitFlag = true;
 }
 
+void GameMechs::setLoseFlag()
+{
+    loseFlag = true;
+}
+
 void GameMechs::setInput(char this_input)
 {
     input = this_input; // Set input to the input passed in
