@@ -22,7 +22,7 @@ class GameMechs
     
         char input;
         bool exitFlag;
-        bool loseFalg;
+        bool loseFlag;
         int boardSizeX;
         int boardSizeY;
         

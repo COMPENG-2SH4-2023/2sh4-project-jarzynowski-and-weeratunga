@@ -1,6 +1,5 @@
 #include "Player.h"
 
-
 Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
@@ -16,10 +15,6 @@ Player::Player(GameMechs* thisGMRef)
     playerPosList->insertHead(startingPos); // Assuming insertHead inserts an objPos at the head of the list
 
 
-
-
-    
-
 }
 
 
@@ -32,6 +27,22 @@ Player::~Player()
 objPosArrayList* Player::getPlayerPos() {
     return playerPosList;
 }
+
+// Doesnt work.
+bool Player::checkSelfCollision(const objPos& newHeadPosition) {
+    // Start the loop at 1 to skip checking the head against itself
+    for (int i = 1; i < playerPosList->getSize(); ++i) {
+        objPos currentSegment;
+        playerPosList->getElement(currentSegment, i);
+        if (newHeadPosition.x == currentSegment.x && newHeadPosition.y == currentSegment.y) {
+            return true; // Collision detected
+        }
+    }
+    return false; // No collision detected
+}
+
+
+
 
 void Player::updatePlayerDir()
 {
@@ -104,6 +115,19 @@ void Player::movePlayer()
     if(newHead.x <= 0) newHead.x = mainGameMechsRef->getBoardSizeX() - 2;
     if(newHead.x >= mainGameMechsRef->getBoardSizeX()) newHead.x = 1;
     
+    if (checkSelfCollision(newHead))
+    {
+        mainGameMechsRef->setExitTrue();
+        mainGameMechsRef->setLoseFlag();
+        return;
+    }
+
+    
+
+
+
+
+
     // Check for food consumption
     objPos foodPos;
     mainGameMechsRef->getFoodPos(foodPos); // Get the current food position
