@@ -12,11 +12,9 @@ Player::Player(GameMechs* thisGMRef)
 
      // Add the first element at starting position
     objPos startingPos(20, 5, '*'); // Creating an objPos using the constructor (int xPos, int yPos, char sym)
-    objPos secondPos(20, 6, '*');
-    objPos thirdPos(20, 7, '*');
+
     playerPosList->insertHead(startingPos); // Assuming insertHead inserts an objPos at the head of the list
-    playerPosList->insertTail(secondPos);
-    playerPosList->insertTail(thirdPos);
+
 
 
 
@@ -78,54 +76,51 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
-    //New in iteration 3
-    objPos currentPos;
-    playerPosList->getHeadElement(currentPos); // Get the current position of the player
+    objPos newHead;
+    playerPosList->getHeadElement(newHead); // Get the current head position of the player
     // PPA3 Finite State Machine logic
     switch(myDir)
     {
         case UP:
-        currentPos.y--;
-        if(currentPos.y <= 0)
-        {
-            currentPos.y = mainGameMechsRef->getBoardSizeY() - 2;
-        }
-        break;
-
+            newHead.y--;
+            break;
         case DOWN:
-        {
-            currentPos.y++;
-            if(currentPos.y >= mainGameMechsRef->getBoardSizeY())
-            {
-                currentPos.y = 1;
-            }
+            newHead.y++;
             break;
-        }
-
         case LEFT:
-        {
-            currentPos.x--;
-            if(currentPos.x <= 0)
-            {
-                currentPos.x = mainGameMechsRef->getBoardSizeX() -2;
-            }
+            newHead.x--;
             break;
-        }
-
         case RIGHT:
-        {
-            currentPos.x++;
-            if(currentPos.x >= mainGameMechsRef->getBoardSizeX())
-            {
-                currentPos.x = 1;
-            }
+            newHead.x++;
             break;
-        }
-        
+        default:
+            // Handle no movement case or invalid direction
+            return;
+    }
+    
+    // Wrap around logic for the snake
+    if(newHead.y <= 0) newHead.y = mainGameMechsRef->getBoardSizeY() - 2;
+    if(newHead.y >= mainGameMechsRef->getBoardSizeY()) newHead.y = 1;
+    if(newHead.x <= 0) newHead.x = mainGameMechsRef->getBoardSizeX() - 2;
+    if(newHead.x >= mainGameMechsRef->getBoardSizeX()) newHead.x = 1;
 
+    // Check for food consumption
+    objPos foodPos;
+    mainGameMechsRef->getFoodPos(foodPos); // Get the current food position
+    if(newHead.x == foodPos.x && newHead.y == foodPos.y)
+    {
+        // Increase score
+        mainGameMechsRef->incrementScore();
+        
+        // Grow the snake - by not removing the tail when food is consumed
+        mainGameMechsRef->generateFood(newHead); // Generate new food, which also should not overlap with the snake
+    }
+    else
+    {
+        playerPosList->removeTail(); // Remove the last element from the list only if food is not consumed
     }
 
-    playerPosList->insertHead(currentPos); // Insert the updated position at the head of the list
-    playerPosList->removeTail(); // Remove the last element from the list
+    playerPosList->insertHead(newHead); // Insert the updated position at the head of the list
 }
+
 

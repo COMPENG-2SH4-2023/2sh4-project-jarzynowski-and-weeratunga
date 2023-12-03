@@ -24,10 +24,17 @@ class Player
         void updatePlayerDir();
         void movePlayer();
 
+        // 3:2
+        bool checkFoodConsumption(); // This function checks if the player has consumed food
+        void increasePlayerLength(); // This function increases the length of the player
+
     private:
         //I upgraded it
-        objPosArrayList* playerPosList;   // Upgrade this in iteration 3.       
+            
         enum Dir myDir;
+
+        // 3:2 
+        objPosArrayList* playerPosList; // This is the list of positions occupied by the player
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;

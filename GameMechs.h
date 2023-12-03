@@ -25,7 +25,13 @@ class GameMechs
         bool loseFalg;
         int boardSizeX;
         int boardSizeY;
-        objPos foodPos;
+        
+        // 3:2 
+        int score; // This is the score of the player
+        objPos foodPos; // This is the position of the food
+
+        
+
 
     public:
         GameMechs();

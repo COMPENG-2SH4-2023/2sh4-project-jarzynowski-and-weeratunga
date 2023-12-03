@@ -4,12 +4,12 @@
 #include <ctime>
 
 
-GameMechs::GameMechs()
+GameMechs::GameMechs() : score(0)
 {
 
 }
 
-GameMechs::GameMechs(int boardX, int boardY)
+GameMechs::GameMechs(int boardX, int boardY) : score(0)
 {
     
 }
@@ -60,9 +60,15 @@ void GameMechs::clearInput()
 
 }
 
+void GameMechs::incrementScore(){
+    score++;
+}
+
+
+
 int GameMechs::getScore()
 {
-    return 69420; // For now.
+    return score; // For now.
 }
 
 void GameMechs::generateFood(const objPos& blockOff) {
