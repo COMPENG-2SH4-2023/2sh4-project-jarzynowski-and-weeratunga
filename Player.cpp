@@ -7,20 +7,32 @@ Player::Player(GameMechs* thisGMRef)
     myDir = STOP;
 
     // more actions to be included
-    playerPos.setObjPos(20,5,'*');
+     playerPosList = new objPosArrayList();
+
+
+     // Add the first element at starting position
+    objPos startingPos(20, 5, '*'); // Creating an objPos using the constructor (int xPos, int yPos, char sym)
+    objPos secondPos(20, 6, '*');
+    objPos thirdPos(20, 7, '*');
+    playerPosList->insertHead(startingPos); // Assuming insertHead inserts an objPos at the head of the list
+    playerPosList->insertTail(secondPos);
+    playerPosList->insertTail(thirdPos);
+
+
+
+    
+
 }
 
 
 Player::~Player()
 {
     // delete any heap members here
-    //nothing needed for now since "new" not used to allocate anything yet
+    delete playerPosList; // Free the memory for playerPosList
 }
 
-void Player::getPlayerPos(objPos &returnPos)
-{
-    // return the reference to the playerPos arrray list
-    returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
+objPosArrayList* Player::getPlayerPos() {
+    return playerPosList;
 }
 
 void Player::updatePlayerDir()
@@ -66,48 +78,54 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
+    //New in iteration 3
+    objPos currentPos;
+    playerPosList->getHeadElement(currentPos); // Get the current position of the player
     // PPA3 Finite State Machine logic
     switch(myDir)
     {
         case UP:
-        playerPos.y--;
-        if(playerPos.y <= 0)
+        currentPos.y--;
+        if(currentPos.y <= 0)
         {
-            playerPos.y = mainGameMechsRef->getBoardSizeY() - 2;
+            currentPos.y = mainGameMechsRef->getBoardSizeY() - 2;
         }
         break;
 
         case DOWN:
         {
-            playerPos.y++;
-            if(playerPos.y >= mainGameMechsRef->getBoardSizeY())
+            currentPos.y++;
+            if(currentPos.y >= mainGameMechsRef->getBoardSizeY())
             {
-                playerPos.y = 1;
+                currentPos.y = 1;
             }
             break;
         }
 
         case LEFT:
         {
-            playerPos.x--;
-            if(playerPos.x <= 0)
+            currentPos.x--;
+            if(currentPos.x <= 0)
             {
-                playerPos.x = mainGameMechsRef->getBoardSizeX() -2;
+                currentPos.x = mainGameMechsRef->getBoardSizeX() -2;
             }
             break;
         }
 
         case RIGHT:
         {
-            playerPos.x++;
-            if(playerPos.x >= mainGameMechsRef->getBoardSizeX())
+            currentPos.x++;
+            if(currentPos.x >= mainGameMechsRef->getBoardSizeX())
             {
-                playerPos.x = 1;
+                currentPos.x = 1;
             }
             break;
         }
         
 
     }
+
+    playerPosList->insertHead(currentPos); // Insert the updated position at the head of the list
+    playerPosList->removeTail(); // Remove the last element from the list
 }
 

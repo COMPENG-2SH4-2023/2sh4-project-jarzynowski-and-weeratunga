@@ -48,9 +48,16 @@ void Initialize(void)
     MacUILib_clearScreen();
     myGM = new GameMechs(26, 13);
     myPlayer = new Player(myGM);
-    
     objPos playerStartPos(26,13,'*');
+   // objPos player1(26,14,'*');
+   // objPos player2(26,15,'*');
 
+    objPosArrayList* playerPosList = myPlayer->getPlayerPos();
+    //playerPosList->insertHead(playerStartPos);
+    //playerPosList->insertTail(player1);
+    //playerPosList->insertTail(player2);
+
+    
 
     myGM->generateFood(playerStartPos);
 
@@ -80,9 +87,8 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();  
 
-    objPos tempPos; 
-    //get the player position
-    myPlayer->getPlayerPos(tempPos);   
+    // Retrieve the player position list
+    objPosArrayList* playerPosList = myPlayer->getPlayerPos();
 
     objPos foodPos;
     myGM->getFoodPos(foodPos);
@@ -96,17 +102,36 @@ void DrawScreen(void)
             {
                 printf("%c", '#');
             }
-            else if (j == tempPos.x && i == tempPos.y)
-            {
-                printf("%c", tempPos.symbol); // Assuming tempPos.symbol holds the player's symbol
-            }
-            else if (j == foodPos.x && i == foodPos.y)
-            {
-                printf("*"); // Draw the food (assuming '*' represents food)
-            }
             else
             {
-                printf("%c", ' ');
+                //this just checks if smthn was drawn or not
+                bool drawn = false;
+
+                // Check if player is at this position in the list
+                for(int k = 0; k < playerPosList->getSize(); k++)
+                {
+                    objPos currentPos;
+                    playerPosList->getElement(currentPos, k);
+
+                    if (currentPos.x == j && currentPos.y == i)
+                    {
+                        //draws the player's symbol
+                        //I'm trying to draw more than one at a time now
+                        printf("%c", currentPos.symbol); 
+                        drawn = true;
+                        break;
+                    }
+                }
+          
+                // If no player is at this position, check for food
+                if (!drawn && j == foodPos.x && i == foodPos.y)
+                {
+                    printf("*"); // Draw the food (assuming '*' represents food)
+                }
+                else if (!drawn)
+                {
+                    printf("%c", ' '); // Draw an empty space
+                }
             }
         }
         printf("\n");
@@ -117,46 +142,22 @@ void DrawScreen(void)
     MacUILib_printf("--'COMPENG-2SH4 Snake'------------------\n");
     MacUILib_printf("----------------------------------------\n");
     MacUILib_printf("-- Current Score: %d \n", myGM->getScore());
-    MacUILib_printf("-- Current Coordinates: [%d, %d] \n", tempPos.x, tempPos.y);
-    MacUILib_printf("-- Food Coordinates: [%d, %d] \n", foodPos.x, foodPos.y);
+
+    //This is how we're gonna print the head element when moving
+    // Get the player position list
+    //Get the head element
+    objPos headPos;
+    playerPosList->getHeadElement(headPos);
+
+    MacUILib_printf("-- Current Coordinates (Head): <%d, %d> \n", headPos.x, headPos.y);
     MacUILib_printf("----------------------------------------\n");
-    MacUILib_printf("-- Controls ----------------------------\n");
+    MacUILib_printf("-- Controls: ---------------------------\n");
     MacUILib_printf("-- W: Move Up, A: Move Left\n"); 
     MacUILib_printf("-- S: Move Down, D: Move Right\n");
     printf("----------------------------------------\n");
     MacUILib_printf("-- By: M. Jarzynowski & S. Weeratunga --\n");
     printf("----------------------------------------\n");
 
-
-
-    
-    //  printf("--'Find-the String'---------------------\n");
-    // printf("----------------------------------------\n");
-    // printf("Mystery String: %s\n", mysteryString);
-    // printf("Move Count: %d\n", moveCount);
-
-    // // Added from PPA2
-
-    // // Coordinates, game speed, and controls printing under the game board
-    // printf("----------------------------------------\n");
-    // printf("Current Coordinates, (%d, %d)\n", player.x, player.y); // Print the current player coordinates
-    // printf("Current Speed Level: %d" " (1-5)\n", gameSpeedIndex + 1); 
-    // printf("----------------------------------------\n");
-    // printf("Controls: \n");
-    // printf("W: Move Up, A: Move Left, S: Move Down, D: Move Right\n");
-    // printf("Q: Increase Speed, E: Decrease Speed, SPACE: Exit\n");
-    // printf("----------------------------------------\n");
-    
-    
-    // //getScore is an error for now but won't be once implemented
-    
-    
-    
-    
-    // MacUILib_printf("Score: %d, Player Pos: <%d, %d>\n", myGM->getScore(), tempPos.x, tempPos.y);
-    // // Added from PPA3
-
-   
 }
 
 void LoopDelay(void)
