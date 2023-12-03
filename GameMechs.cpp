@@ -1,21 +1,17 @@
 #include "GameMechs.h"
 
+// Consider these libaries as to be used to generate food
 #include <cstdlib>
 #include <ctime>
 
-
 GameMechs::GameMechs() : score(0)
 {
-
 }
 
 GameMechs::GameMechs(int boardX, int boardY) : score(0)
-{
-    
+{    
 }
 
-// do you need a destructor?
-// yes scotty chen
 
 bool GameMechs::getExitFlagStatus()
 {
@@ -52,17 +48,14 @@ void GameMechs::setInput(char this_input)
 {
     input = this_input; // Set input to the input passed in
 
-    if (input == '`')
-    {
+    if (input == '`'){
         exitFlag = true;
     }
-
 }
 
 void GameMechs::clearInput()
 {
     input = ' '; // Clear the input
-
 }
 
 void GameMechs::incrementScore(){
@@ -95,14 +88,14 @@ void GameMechs::generateFood(const objPos& blockOff) {
     // Set the food position
     foodPos.x = x;
     foodPos.y = y;
-    //foodPos.icon = '*'; // Assuming '*' is the symbol for food
-    // I AM CHANGING THIS SO ITS OOP BULLSHIT SINCE I AM JUST PASSING
-    // THE SYMBOL VIA DRAW SCREEN DUE TO LAZINESS!!!!!!!!!!!
-
-
 }
 
 void GameMechs::getFoodPos(objPos& returnPos) {
     returnPos = foodPos; // Assign the food position to returnPos
+}
+
+bool GameMechs::getLoseFlag() const
+{
+    return loseFlag;
 }
 

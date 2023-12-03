@@ -58,6 +58,7 @@ class GameMechs
         void getFoodPos(objPos& returnPos);
         // 2B - Get food position function
 
+        bool getLoseFlag() const;
 };
 
 #endif
