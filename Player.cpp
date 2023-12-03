@@ -103,7 +103,7 @@ void Player::movePlayer()
     if(newHead.y >= mainGameMechsRef->getBoardSizeY()) newHead.y = 1;
     if(newHead.x <= 0) newHead.x = mainGameMechsRef->getBoardSizeX() - 2;
     if(newHead.x >= mainGameMechsRef->getBoardSizeX()) newHead.x = 1;
-
+    
     // Check for food consumption
     objPos foodPos;
     mainGameMechsRef->getFoodPos(foodPos); // Get the current food position

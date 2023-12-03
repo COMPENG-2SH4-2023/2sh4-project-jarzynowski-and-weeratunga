@@ -27,7 +27,7 @@ class GameMechs
         int boardSizeY;
         
         // 3:2 
-        int score; // This is the score of the player
+        int score;
         objPos foodPos; // This is the position of the food
 
         

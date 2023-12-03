@@ -28,6 +28,12 @@ class Player
         bool checkFoodConsumption(); // This function checks if the player has consumed food
         void increasePlayerLength(); // This function increases the length of the player
 
+        // 3:3
+        bool checkSelfCollision(); // This function checks if the player has collided with itself
+
+
+
+
     private:
         //I upgraded it
             
