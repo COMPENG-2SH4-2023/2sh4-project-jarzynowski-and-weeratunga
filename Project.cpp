@@ -169,10 +169,14 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();    
-  
+    if(myGM->getExitFlagStatus()){
+        cout << "Crashed into yourself, you lose!" << endl;
+        cout << "Your score was: " << myGM->getScore() << endl;
+    }
     MacUILib_uninit();
 
     //deallocate heap instances
     delete myGM;
     delete myPlayer;
+    
 }
