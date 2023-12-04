@@ -13,5 +13,5 @@ ${EXEC} : $(OBJ)
 
 clean :
 	rm -rf ${OBJ} ${EXEC} ${EXEC}.exe 
-	## Changed "-r" to "-rf" to avoid error message if file does not exist, c'mon Scotty!
+	## Changed "-r" to "-rf" to avoid error message if file does not exist.
 

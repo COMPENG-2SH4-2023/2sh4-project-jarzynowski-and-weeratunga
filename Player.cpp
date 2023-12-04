@@ -5,22 +5,17 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    // more actions to be included
-     playerPosList = new objPosArrayList();
+    playerPosList = new objPosArrayList();
 
-
-     // Add the first element at starting position
+    // Define the "head" of the snake, starting in the middle of the screen
     objPos startingPos(20, 5, '*'); // Creating an objPos using the constructor (int xPos, int yPos, char sym)
-
     playerPosList->insertHead(startingPos); // Assuming insertHead inserts an objPos at the head of the list
 
 
 }
 
-
 Player::~Player()
 {
-    // delete any heap members here
     delete playerPosList; // Free the memory for playerPosList
 }
 
@@ -28,12 +23,15 @@ objPosArrayList* Player::getPlayerPos() {
     return playerPosList;
 }
 
-// Doesnt work.
+// Boolean to check if the new head position is the same as any of the other segments of the snake
 bool Player::checkSelfCollision(const objPos& newHeadPosition) {
+    
     // Start the loop at 1 to skip checking the head against itself
     for (int i = 1; i < playerPosList->getSize(); ++i) {
+        
         objPos currentSegment;
         playerPosList->getElement(currentSegment, i);
+       
         if (newHeadPosition.x == currentSegment.x && newHeadPosition.y == currentSegment.y) {
             return true; // Collision detected
         }
@@ -41,9 +39,7 @@ bool Player::checkSelfCollision(const objPos& newHeadPosition) {
     return false; // No collision detected
 }
 
-
-
-
+// FSM logic to update the player direction
 void Player::updatePlayerDir()
 {
     // PPA3 input processing logic   
@@ -85,6 +81,7 @@ void Player::updatePlayerDir()
 
 }
 
+// FSM logic to move the player
 void Player::movePlayer()
 {
     objPos newHead;
@@ -107,16 +104,13 @@ void Player::movePlayer()
     if(newHead.x <= 0) newHead.x = mainGameMechsRef->getBoardSizeX() - 2;
     if(newHead.x >= mainGameMechsRef->getBoardSizeX()) newHead.x = 1;
     
-
-    // Collision Check - setLoseFlag() messages still need to be implemented
+    // Collision Check
     if (checkSelfCollision(newHead))
     {
         mainGameMechsRef->setExitTrue();
         mainGameMechsRef->setLoseFlag();
         return;
     }
-
-
 
     // Check for food consumption
     objPos foodPos;

@@ -25,13 +25,9 @@ class GameMechs
         bool loseFlag;
         int boardSizeX;
         int boardSizeY;
-        
-        // 3:2 
         int score;
-        objPos foodPos; // This is the position of the food
-
         
-
+        objPos foodPos; // This is the position of the food
 
     public:
         GameMechs();
@@ -52,11 +48,8 @@ class GameMechs
         int getBoardSizeX();
         int getBoardSizeY();
 
-        void generateFood(const objPos& blockOff);
-        // 2B - Generate food function, straight from PPA3
-
-        void getFoodPos(objPos& returnPos);
-        // 2B - Get food position function
+        void generateFood(const objPos& blockOff); // This function generates the food at a random position, brought over from PPA-3
+        void getFoodPos(objPos& returnPos); // This function returns the food position
 
         bool getLoseFlag() const;
 };

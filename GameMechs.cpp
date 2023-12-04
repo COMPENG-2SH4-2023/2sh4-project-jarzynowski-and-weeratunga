@@ -12,7 +12,6 @@ GameMechs::GameMechs(int boardX, int boardY) : score(0)
 {    
 }
 
-
 bool GameMechs::getExitFlagStatus()
 {
     return exitFlag;
@@ -48,6 +47,8 @@ void GameMechs::setInput(char this_input)
 {
     input = this_input; // Set input to the input passed in
 
+    // Consider the exit key to be tilda, "~", but when pressed, its "`", since 
+    // the shift key is not being pressed
     if (input == '`'){
         exitFlag = true;
         loseFlag = false;
@@ -65,11 +66,9 @@ void GameMechs::incrementScore(){
     score++;
 }
 
-
-
 int GameMechs::getScore()
 {
-    return score; // For now.
+    return score; 
 }
 
 void GameMechs::generateFood(const objPos& blockOff) {

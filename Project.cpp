@@ -128,7 +128,6 @@ void DrawScreen(void)
         printf("\n");
     }
 
-    
     // Bottom "Status Bar"
     MacUILib_printf("--'Simply Snake' (Classic Edition) -----\n"); 
     MacUILib_printf("----------------------------------------\n");
@@ -153,11 +152,15 @@ void CleanUp(void)
 {
     // Game Over Messages
     MacUILib_clearScreen();    
+    
+    // If the player crashes into themselves, and doesnt quit, hence true and false...
     if(myGM->getExitFlagStatus() == 1 && myGM->getLoseFlag() == true){
         
         cout << "You crashed into yourself, you're done :(" << endl;
         cout << "Consider 'getting good' and trying again." << endl;
         cout << "Your final score was: " << myGM->getScore() << endl;
+    
+    // If the player crashes into the wall, and doesnt quit, hence true and false...
     }else if (myGM->getExitFlagStatus() ==1 && myGM->getLoseFlag() == false){
         cout << "You quit the game!" << endl;
         cout << "Too hard?" << endl;
@@ -168,5 +171,5 @@ void CleanUp(void)
     // Deallocate Heap Memory
     delete myGM;
     delete myPlayer;
-    
+    // No leak. No problem.
 }

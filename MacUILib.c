@@ -1,5 +1,5 @@
 #include "MacUILib.h"
-#include <windows.h> // sure man
+#include <windows.h> // This was added due to compilation error on Windows, "usleep" was not recognized, but "Sleep" was. Line 23
 
 print_ptr MacUILib_printf;
 
